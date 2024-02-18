@@ -21,6 +21,6 @@ router.get("/org", (req, res) => {
   });
 });
 
-app.use("/api/v1", router);
+app.use("/v1", router);
 
 module.exports.handler = serverless(app);
