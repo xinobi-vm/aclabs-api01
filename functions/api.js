@@ -21,7 +21,7 @@ const jwtCheck = jwt({
 
 // Check Scopes
 function checkUserScope(req, res, next) {
-  console.log(`scp: ${scp}`);
+  let scp = req.auth.scp;
   if (!(scp.includes("aclabs:read") || scp.includes("aclabs:read-write"))) {
     return res.status(403).json({
       error: "403 Forbidden",
@@ -32,7 +32,7 @@ function checkUserScope(req, res, next) {
 }
 
 function checkAdminScope(req, res, next) {
-  console.log(`scp: ${scp}`);
+  let scp = req.auth.scp;
   if (!scp.includes("aclabs:read-write")) {
     return res.status(403).json({
       error: "403 Forbidden",
