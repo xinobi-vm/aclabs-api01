@@ -19,6 +19,29 @@ const jwtCheck = jwt({
   algorithms: ["RS256"],
 });
 
+// Check Scopes
+function checkUserScope(req, res, next) {
+  console.log(`scp: ${scp}`);
+  if (!(scp.includes("aclabs:read") || scp.includes("aclabs:read-write"))) {
+    return res.status(403).json({
+      error: "403 Forbidden",
+      errorSummary: "Requires atleast aclabs:read in the request",
+    });
+  }
+  next();
+}
+
+function checkAdminScope(req, res, next) {
+  console.log(`scp: ${scp}`);
+  if (!scp.includes("aclabs:read-write")) {
+    return res.status(403).json({
+      error: "403 Forbidden",
+      errorSummary: "Requires aclabs:read-write in the request",
+    });
+  }
+  next();
+}
+
 router.get("/", (req, res) => {
   res.json({
     server: {
@@ -37,13 +60,36 @@ router.get("/org", (req, res) => {
 });
 
 router.get("/org/private", jwtCheck, (req, res) => {
-  console.log(JSON.stringify(req.auth));
   res.json({
     org: "AC Labs",
     version: "1.0",
     author: "KR",
     api: {
       type: "private",
+    },
+  });
+});
+
+router.get("/aclabs/user", jwtCheck, checkUserScope, (req, res) => {
+  res.json({
+    org: "AC Labs",
+    api: {
+      type: "private",
+    },
+    user: {
+      type: "aclabs-User",
+    },
+  });
+});
+
+router.get("/aclabs/admin", jwtCheck, checkAdminScope, (req, res) => {
+  res.json({
+    org: "AC Labs",
+    api: {
+      type: "private",
+    },
+    user: {
+      type: "aclabs-Admin",
     },
   });
 });
