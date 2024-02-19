@@ -9,7 +9,7 @@ Supported API endpoints
 
 
 
-GET "/"
+**GET "/"**
 Endpoint Type: Public
 Returns: HTTP 200 
     {
@@ -18,7 +18,7 @@ Returns: HTTP 200
         },
     } 
 
-GET "/org"
+**GET "/org"**
 Endpoint Type: Public
 Returns: HTTP 200
     {
@@ -28,7 +28,7 @@ Returns: HTTP 200
         },
     }
 
-GET "/org/private"
+**GET "/org/private"**
 Endpoint Type: Private
 Returns:
 After successful validation of Access Token against Authorization Server
@@ -47,7 +47,7 @@ After successful validation of Access Token against Authorization Server
       status: "Invalid Token",
     }
 
-GET "/aclabs/user"
+**GET "/aclabs/user"**
 Endpoint Type: Private
 Returns:
 After successful validation of Access Token against Authorization Server
@@ -70,7 +70,7 @@ After successful validation of Access Token against Authorization Server
     }
 
 
-GET "/aclabs/admin"
+**GET "/aclabs/admin"**
 Endpoint Type: Private
 Returns:
 After successful validation of Access Token against Authorization Server
